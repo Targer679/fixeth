@@ -25,7 +25,7 @@ const Home = () => {
           <Link href="/issue" className="btn btn-primary btn-lg m-2">
             🎓 Issue Diploma
           </Link>
-          <Link href="/verify/1" className="btn btn-secondary btn-lg m-2">
+          <Link href="/verify" className="btn btn-secondary btn-lg m-2">
             🔍 Verify Diploma
           </Link>
         </div>

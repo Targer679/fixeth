@@ -11,13 +11,36 @@ interface DiplomaSummary {
   institution: string;
   degree: string;
   owner: string;
+  issueDate: bigint;
 }
 
 export default function VerifyDiplomasPage() {
   const [diplomas, setDiplomas] = useState<DiplomaSummary[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [maxTokenId, setMaxTokenId] = useState(0);
   const publicClient = usePublicClient();
   const { data: deployedContract } = useDeployedContractInfo("EduChainDiploma");
+
+  // Функция для поиска максимального ID диплома
+  const findMaxTokenId = async (): Promise<number> => {
+    if (!deployedContract || !publicClient) return 0;
+
+    // Проверяем дипломы с ID от 1 до 100 (можно увеличить)
+    for (let tokenId = 1; tokenId <= 100; tokenId++) {
+      try {
+        await publicClient.readContract({
+          address: deployedContract.address,
+          abi: deployedContract.abi,
+          functionName: "getDiploma",
+          args: [BigInt(tokenId)],
+        });
+      } catch (error) {
+        // Диплом не существует, возвращаем предыдущий ID
+        return tokenId - 1;
+      }
+    }
+    return 100;
+  };
 
   useEffect(() => {
     const fetchAllDiplomas = async () => {
@@ -28,10 +51,20 @@ export default function VerifyDiplomasPage() {
 
       try {
         setIsLoading(true);
+
+        // Сначала находим максимальный ID
+        const maxId = await findMaxTokenId();
+        setMaxTokenId(maxId);
+
+        if (maxId === 0) {
+          setDiplomas([]);
+          return;
+        }
+
         const diplomasList: DiplomaSummary[] = [];
 
-        // Будем проверять дипломы с ID от 1 до 20 (можно увеличить)
-        for (let tokenId = 1; tokenId <= 20; tokenId++) {
+        // Загружаем дипломы в обратном порядке (от самого нового к самому старому)
+        for (let tokenId = maxId; tokenId >= 1; tokenId--) {
           try {
             const [diplomaData, owner] = await Promise.all([
               publicClient.readContract({
@@ -49,7 +82,7 @@ export default function VerifyDiplomasPage() {
               }) as Promise<string>,
             ]);
 
-            const [holderName, institution, degree] = diplomaData;
+            const [holderName, institution, degree, , issueDate] = diplomaData;
 
             diplomasList.push({
               tokenId,
@@ -57,9 +90,13 @@ export default function VerifyDiplomasPage() {
               institution,
               degree,
               owner,
+              issueDate,
             });
+
+            // Ограничим показ 20 последними дипломами для производительности
+            if (diplomasList.length >= 20) break;
           } catch (error) {
-            // Диплом с этим ID не существует, пропускаем
+            // Пропускаем несуществующие дипломы
             continue;
           }
         }
@@ -97,7 +134,9 @@ export default function VerifyDiplomasPage() {
       <div className="px-5 w-full max-w-6xl">
         <h1 className="text-center mb-8">
           <span className="block text-2xl mb-2">All Diplomas</span>
-          <span className="block text-lg text-gray-600">Browse verified diplomas on Status Network</span>
+          <span className="block text-lg text-gray-600">
+            Latest diplomas on Status Network {maxTokenId > 0 && `(Total: ${maxTokenId})`}
+          </span>
         </h1>
 
         {diplomas.length === 0 ? (
@@ -109,33 +148,61 @@ export default function VerifyDiplomasPage() {
           </div>
         ) : (
           <>
-            <div className="mb-6 text-sm text-gray-600">
-              Found {diplomas.length} diploma{diplomas.length !== 1 ? "s" : ""}
+            <div className="mb-6 flex justify-between items-center">
+              <div className="text-sm text-gray-600">
+                Showing {diplomas.length} latest diploma{diplomas.length !== 1 ? "s" : ""}
+                {maxTokenId > diplomas.length && ` of ${maxTokenId} total`}
+              </div>
+
+              {/* Кнопка для просмотра всех если их много */}
+              {maxTokenId > 20 && (
+                <div className="text-sm">
+                  <button className="btn btn-sm btn-outline">View All {maxTokenId} Diplomas</button>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {diplomas.map(diploma => (
                 <Link key={diploma.tokenId} href={`/verify/${diploma.tokenId}`} className="block">
-                  <div className="bg-base-100 p-6 rounded-3xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer border-2 border-transparent hover:border-primary">
-                    <div className="flex justify-between items-start mb-4">
+                  <div className="bg-base-100 p-6 rounded-3xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer border-2 border-transparent hover:border-primary group">
+                    {/* Бейдж "New" для самых свежих дипломов */}
+                    {diploma.tokenId === maxTokenId && (
+                      <div className="badge badge-secondary badge-sm mb-2">NEWEST</div>
+                    )}
+
+                    <div className="flex justify-between items-start mb-3">
                       <span className="badge badge-primary badge-lg">#{diploma.tokenId}</span>
-                      <span className="badge badge-outline">{diploma.degree}</span>
+                      <span className="badge badge-outline text-xs">{diploma.degree}</span>
                     </div>
 
-                    <h3 className="text-xl font-bold mb-2 truncate">{diploma.holderName}</h3>
+                    <h3 className="text-xl font-bold mb-2 truncate group-hover:text-primary transition-colors">
+                      {diploma.holderName}
+                    </h3>
 
                     <p className="text-gray-600 mb-3 truncate">{diploma.institution}</p>
 
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-gray-500 truncate max-w-[120px]">
-                        {diploma.owner.slice(0, 6)}...{diploma.owner.slice(-4)}
+                      <div className="text-gray-500">
+                        {new Date(Number(diploma.issueDate) * 1000).toLocaleDateString()}
+                      </div>
+                      <span className="text-primary font-semibold group-hover:translate-x-1 transition-transform">
+                        View Details →
                       </span>
-                      <span className="text-primary font-semibold">View →</span>
                     </div>
                   </div>
                 </Link>
               ))}
             </div>
+
+            {/* Показать сколько всего дипломов */}
+            {maxTokenId > diplomas.length && (
+              <div className="mt-6 text-center">
+                <div className="alert alert-warning max-w-md mx-auto">
+                  📋 Showing latest {diplomas.length} of {maxTokenId} total diplomas
+                </div>
+              </div>
+            )}
 
             <div className="mt-8 text-center">
               <div className="alert alert-success max-w-md mx-auto">
