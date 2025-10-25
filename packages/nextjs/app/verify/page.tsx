@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { QRCodeSVG } from "qrcode.react";
 import { usePublicClient } from "wagmi";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, QrCodeIcon } from "@heroicons/react/24/outline";
 import { useDeployedContractInfo } from "~~/hooks/scaffold-eth/useDeployedContractInfo";
 
 interface DiplomaSummary {
@@ -21,6 +22,7 @@ export default function VerifyDiplomasPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [maxTokenId, setMaxTokenId] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showQRCode, setShowQRCode] = useState<number | null>(null);
   const publicClient = usePublicClient();
   const { data: deployedContract } = useDeployedContractInfo("EduChainDiploma");
 
@@ -153,6 +155,21 @@ export default function VerifyDiplomasPage() {
     setDiplomas(filtered);
   }, [searchTerm, allDiplomas]);
 
+  const toggleQRCode = (tokenId: number) => {
+    if (showQRCode === tokenId) {
+      setShowQRCode(null);
+    } else {
+      setShowQRCode(tokenId);
+    }
+  };
+
+  const getVerifyUrl = (tokenId: number) => {
+    if (typeof window !== "undefined") {
+      return `${window.location.origin}/verify/${tokenId}`;
+    }
+    return `https://yourapp.com/verify/${tokenId}`;
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center flex-col flex-grow pt-10">
@@ -244,7 +261,7 @@ export default function VerifyDiplomasPage() {
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {diplomas.map(diploma => (
-                    <Link key={diploma.tokenId} href={`/verify/${diploma.tokenId}`} className="block">
+                    <div key={diploma.tokenId} className="relative">
                       <div className="bg-base-100 p-6 rounded-3xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer border-2 border-transparent hover:border-primary group">
                         {/* Бейдж "New" для самых свежих дипломов */}
                         {!searchTerm && diploma.tokenId === maxTokenId && (
@@ -253,25 +270,75 @@ export default function VerifyDiplomasPage() {
 
                         <div className="flex justify-between items-start mb-3">
                           <span className="badge badge-primary badge-lg">#{diploma.tokenId}</span>
-                          <span className="badge badge-outline text-xs">{diploma.degree}</span>
-                        </div>
-
-                        <h3 className="text-xl font-bold mb-2 truncate group-hover:text-primary transition-colors">
-                          {diploma.holderName}
-                        </h3>
-
-                        <p className="text-gray-600 mb-3 truncate">{diploma.institution}</p>
-
-                        <div className="flex justify-between items-center text-sm">
-                          <div className="text-gray-500">
-                            {new Date(Number(diploma.issueDate) * 1000).toLocaleDateString()}
+                          <div className="flex space-x-1">
+                            <span className="badge badge-outline text-xs">{diploma.degree}</span>
+                            <button
+                              onClick={e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleQRCode(diploma.tokenId);
+                              }}
+                              className={`btn btn-xs btn-ghost ${showQRCode === diploma.tokenId ? "btn-active" : ""}`}
+                              title="Generate QR Code"
+                            >
+                              <QrCodeIcon className="h-4 w-4" />
+                            </button>
                           </div>
-                          <span className="text-primary font-semibold group-hover:translate-x-1 transition-transform">
-                            View Details →
-                          </span>
                         </div>
+
+                        <Link href={`/verify/${diploma.tokenId}`} className="block">
+                          <h3 className="text-xl font-bold mb-2 truncate group-hover:text-primary transition-colors">
+                            {diploma.holderName}
+                          </h3>
+
+                          <p className="text-gray-600 mb-3 truncate">{diploma.institution}</p>
+
+                          <div className="flex justify-between items-center text-sm">
+                            <div className="text-gray-500">
+                              {new Date(Number(diploma.issueDate) * 1000).toLocaleDateString()}
+                            </div>
+                            <span className="text-primary font-semibold group-hover:translate-x-1 transition-transform">
+                              View Details →
+                            </span>
+                          </div>
+                        </Link>
+
+                        {/* QR Code Modal */}
+                        {showQRCode === diploma.tokenId && (
+                          <div className="absolute top-0 left-0 right-0 bottom-0 bg-base-100 bg-opacity-95 rounded-3xl flex items-center justify-center p-4 z-10 border-2 border-primary">
+                            <div className="text-center">
+                              <h4 className="font-bold mb-3">Scan to Verify</h4>
+                              <div className="bg-white p-3 rounded-lg shadow-md mb-3">
+                                <QRCodeSVG value={getVerifyUrl(diploma.tokenId)} size={180} level="M" includeMargin />
+                              </div>
+                              <p className="text-xs text-gray-600 mb-3 break-all">{getVerifyUrl(diploma.tokenId)}</p>
+                              <div className="flex space-x-2 justify-center">
+                                <button
+                                  onClick={e => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    navigator.clipboard.writeText(getVerifyUrl(diploma.tokenId));
+                                  }}
+                                  className="btn btn-xs btn-outline"
+                                >
+                                  Copy Link
+                                </button>
+                                <button
+                                  onClick={e => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setShowQRCode(null);
+                                  }}
+                                  className="btn btn-xs btn-ghost"
+                                >
+                                  Close
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </Link>
+                    </div>
                   ))}
                 </div>
 
@@ -288,6 +355,9 @@ export default function VerifyDiplomasPage() {
                   <div className="mt-8 text-center">
                     <div className="alert alert-success max-w-md mx-auto">
                       ✅ All diplomas are verified on Status Network blockchain
+                    </div>
+                    <div className="text-sm text-gray-600 mt-2">
+                      📱 Click the QR icon on any diploma to generate a verification code
                     </div>
                   </div>
                 )}
