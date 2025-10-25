@@ -318,10 +318,10 @@ export default function VerifyDiplomasPage() {
                         {/* Shine Effect */}
                         <div className="absolute inset-0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
-                        {/* Newest Badge */}
+                        {/* Newest Badge - Исправленное расположение */}
                         {!searchTerm && diploma.tokenId === maxTokenId && (
-                          <div className="absolute -top-2 -right-2">
-                            <div className="badge badge-primary badge-lg px-3 py-2 shadow-lg animate-pulse">
+                          <div className="absolute -top-3 -right-3 z-20">
+                            <div className="badge badge-primary badge-lg px-4 py-3 shadow-xl animate-pulse text-white font-bold text-sm">
                               ✨ NEWEST
                             </div>
                           </div>
@@ -386,46 +386,49 @@ export default function VerifyDiplomasPage() {
 
                 {/* QR Code Modal - ВНЕ КАРТОЧКИ */}
                 {showQRCode && (
-                  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                  <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md flex items-center justify-center z-50 p-4">
                     <div className="bg-base-100 rounded-3xl p-8 max-w-md w-full mx-auto relative shadow-2xl border-2 border-primary">
                       {/* Close Button */}
                       <button
                         onClick={() => setShowQRCode(null)}
-                        className="absolute top-4 right-4 btn btn-circle btn-sm btn-ghost hover:bg-error hover:text-error-content transition-all duration-300"
+                        className="absolute top-4 right-4 btn btn-circle btn-sm btn-ghost hover:bg-error hover:text-error-content transition-all duration-300 z-10"
                       >
                         <XMarkIcon className="h-5 w-5" />
                       </button>
 
-                      <div className="text-center">
-                        <h4 className="font-bold text-2xl mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                      <div className="text-center font-sans">
+                        <h4 className="font-bold text-3xl mb-8 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                           Scan to Verify
                         </h4>
-                        <div className="bg-white p-4 rounded-2xl shadow-lg mb-6 border-2 border-primary/20">
-                          <QRCodeSVG value={getVerifyUrl(showQRCode)} size={250} level="M" includeMargin />
+                        <div className="flex justify-center mb-8">
+                          <div className="bg-white p-5 rounded-2xl shadow-xl border-2 border-primary/20">
+                            <QRCodeSVG value={getVerifyUrl(showQRCode)} size={220} level="M" includeMargin />
+                          </div>
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">Verification URL:</p>
-                        <p className="text-xs text-gray-500 mb-6 break-all font-mono bg-base-200 p-3 rounded-lg">
+                        <p className="text-sm text-gray-600 mb-3 font-medium">Verification URL:</p>
+                        <p className="text-xs text-gray-500 mb-8 break-all font-mono bg-base-200 p-3 rounded-lg border border-primary/10">
                           {getVerifyUrl(showQRCode)}
                         </p>
-                        <div className="flex gap-3 justify-center">
+                        <div className="flex gap-4 justify-center">
                           <button
                             onClick={() => copyToClipboard(getVerifyUrl(showQRCode))}
-                            className="btn btn-primary btn-sm hover:scale-105 transition-transform duration-200 flex items-center gap-2"
+                            className="btn btn-primary btn-md hover:scale-105 transition-transform duration-200 flex items-center gap-2 font-semibold"
                           >
                             {copied ? (
                               <>
-                                <span>✅ Copied!</span>
+                                <span className="text-lg">✅</span>
+                                <span>Copied!</span>
                               </>
                             ) : (
                               <>
-                                <span>📋</span>
-                                Copy Link
+                                <span className="text-lg">📋</span>
+                                <span>Copy Link</span>
                               </>
                             )}
                           </button>
                           <button
                             onClick={() => setShowQRCode(null)}
-                            className="btn btn-ghost btn-sm hover:scale-105 transition-transform duration-200"
+                            className="btn btn-outline btn-md hover:scale-105 transition-transform duration-200 font-semibold"
                           >
                             Close
                           </button>
