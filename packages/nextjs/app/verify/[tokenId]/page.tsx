@@ -84,8 +84,16 @@ export default function VerifyDiplomaPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center flex-col flex-grow pt-20 bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen">
-        <div className="px-5 text-center">
+      <div
+        className="flex items-center flex-col flex-grow pt-20 min-h-screen"
+        style={{
+          backgroundImage: "url('/verify_id.gif')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="px-5 text-center bg-white/80 backdrop-blur-sm rounded-3xl p-8 m-4 shadow-2xl">
           <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl flex items-center justify-center mb-6 shadow-2xl">
             <AcademicCapIcon className="h-12 w-12 text-white" />
           </div>
@@ -103,8 +111,16 @@ export default function VerifyDiplomaPage() {
 
   if (!isValidTokenId) {
     return (
-      <div className="flex items-center flex-col flex-grow pt-20 bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen">
-        <div className="px-5 text-center">
+      <div
+        className="flex items-center flex-col flex-grow pt-20 min-h-screen"
+        style={{
+          backgroundImage: "url('/verify_id.gif')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="px-5 text-center bg-white/80 backdrop-blur-sm rounded-3xl p-8 m-4 shadow-2xl">
           <div className="w-24 h-24 mx-auto bg-gradient-to-br from-yellow-500 to-orange-600 rounded-3xl flex items-center justify-center mb-6 shadow-2xl">
             <ShieldCheckIcon className="h-12 w-12 text-white" />
           </div>
@@ -121,8 +137,16 @@ export default function VerifyDiplomaPage() {
 
   if (!diplomaData) {
     return (
-      <div className="flex items-center flex-col flex-grow pt-20 bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen">
-        <div className="px-5 text-center">
+      <div
+        className="flex items-center flex-col flex-grow pt-20 min-h-screen"
+        style={{
+          backgroundImage: "url('/verify_id.gif')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="px-5 text-center bg-white/80 backdrop-blur-sm rounded-3xl p-8 m-4 shadow-2xl">
           <div className="w-24 h-24 mx-auto bg-gradient-to-br from-red-500 to-pink-600 rounded-3xl flex items-center justify-center mb-6 shadow-2xl">
             <ShieldCheckIcon className="h-12 w-12 text-white" />
           </div>
@@ -139,10 +163,18 @@ export default function VerifyDiplomaPage() {
   }
 
   return (
-    <div className="flex items-center flex-col flex-grow pt-10 bg-gradient-to-br from-green-50 via-white to-emerald-100 min-h-screen">
+    <div
+      className="flex items-center flex-col flex-grow pt-10 min-h-screen"
+      style={{
+        backgroundImage: "url('/verify_id.gif')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="px-5 w-full max-w-6xl">
         {/* Header Section */}
-        <div className="text-center mb-12">
+        {/* <div className="text-center mb-12 bg-white/80 backdrop-blur-sm rounded-3xl p-8 m-4 shadow-2xl">
           <div className="flex justify-center mb-6">
             <div className="relative">
               <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl transform hover:scale-105 transition-transform duration-300">
@@ -157,10 +189,10 @@ export default function VerifyDiplomaPage() {
           <p className="text-xl text-gray-700 max-w-2xl mx-auto font-medium">
             ID: <span className="font-mono bg-green-100 text-green-800 px-3 py-1 rounded-lg">#{tokenId}</span>
           </p>
-        </div>
+        </div> */}
 
         {/* Main Verification Card */}
-        <div className="relative">
+        <div className="relative pb-15">
           {/* Background Effects */}
           <div className="absolute -inset-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-4xl blur-xl opacity-50"></div>
 
