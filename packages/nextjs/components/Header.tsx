@@ -32,8 +32,8 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <AcademicCapIcon className="h-4 w-4" />,
   },
   {
-    label: "Verify Diploma",
-    href: "/verify/1",
+    label: "Verify Diplomas",
+    href: "/verify",
     icon: <DocumentMagnifyingGlassIcon className="h-4 w-4" />,
   },
 ];
