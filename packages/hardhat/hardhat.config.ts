@@ -27,8 +27,9 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.20",
+        version: "0.8.24",
         settings: {
+          evmVersion: "paris",
           optimizer: {
             enabled: true,
             // https://docs.soliditylang.org/en/latest/using-the-compiler.html#optimizer-options
@@ -126,6 +127,12 @@ const config: HardhatUserConfig = {
       url: "https://forno.celo-sepolia.celo-testnet.org/",
       accounts: [deployerPrivateKey],
     },
+    statusSepolia: {
+      gas: 0,
+      gasPrice: 0,
+      url: "https://public.sepolia.rpc.status.network",
+      accounts: [deployerPrivateKey],
+    }
   },
   // Configuration for harhdat-verify plugin
   etherscan: {
