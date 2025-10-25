@@ -168,7 +168,7 @@ export default function VerifyDiplomasPage() {
   }
 
   return (
-    <div className="flex items-center flex-col flex-grow pt-10 bg-gradient-to-b from-base-100 to-base-200 min-h-screen">
+    <div className="flex items-center flex-col flex-grow pt-20 bg-gradient-to-b from-base-100 to-base-200 min-h-screen">
       <div className="px-5 w-full max-w-7xl">
         {/* Header Section */}
         <div className="text-center mb-12">
@@ -178,7 +178,7 @@ export default function VerifyDiplomasPage() {
               <div className="absolute -inset-2 bg-primary/20 rounded-full blur-sm animate-pulse"></div>
             </div>
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4 pb-5">
             Verify Diplomas
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -216,7 +216,7 @@ export default function VerifyDiplomasPage() {
           <div className="text-center mt-4">
             <div className="inline-flex gap-2 text-sm text-gray-500 bg-base-200 px-4 py-2 rounded-full">
               <span className="font-semibold text-primary">Try:</span>
-              John, #1, Stanford, Bachelor
+              John, 1, Stanford Univercity, Bachelor
             </div>
           </div>
         </div>
@@ -238,19 +238,30 @@ export default function VerifyDiplomasPage() {
         ) : (
           <>
             {/* Results Header */}
-            <div className="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4 p-6 bg-base-100 rounded-2xl shadow-lg border border-primary/10">
-              <div className="flex items-center gap-4">
-                <div className="stat">
-                  <div className="stat-value text-2xl text-primary">{diplomas.length}</div>
-                  <div className="stat-desc text-gray-600">{searchTerm ? "Search Results" : "Latest Diplomas"}</div>
+            <div className="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4 p-6">
+              <div className="flex-1 flex justify-center">
+                <div className="text-center">
+                  <div className="flex items-baseline justify-center gap-4">
+                    <span className="text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                      {diplomas.length}
+                    </span>
+                    <span className="text-2xl text-gray-800 font-semibold">
+                      {searchTerm ? "Search Results" : "Latest Diplomas"}
+                    </span>
+                  </div>
                 </div>
-                {searchTerm && <div className="badge badge-primary badge-lg px-4 py-3">Results for: {searchTerm}</div>}
               </div>
 
+              {searchTerm && (
+                <div className="badge badge-primary badge-lg px-4 py-3 text-lg">Results for: {searchTerm}</div>
+              )}
+
               {!searchTerm && maxTokenId > 20 && (
-                <button className="btn btn-outline btn-primary hover:scale-105 transform transition-all duration-300">
-                  View All {maxTokenId} Diplomas
-                </button>
+                <div className="flex-1 flex justify-end">
+                  <button className="btn btn-outline btn-primary hover:scale-105 transform transition-all duration-300">
+                    View All {maxTokenId} Diplomas
+                  </button>
+                </div>
               )}
             </div>
 
