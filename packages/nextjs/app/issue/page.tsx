@@ -87,10 +87,8 @@ export default function IssueDiplomaPage() {
       <div className="px-5 w-full max-w-2xl">
         <h1 className="text-center mb-8">
           <span className="block text-2xl mb-2">Issue Diploma</span>
-          <span className="block text-lg text-gray-600">Gasless transactions on Status Network</span>
+          <span className="block text-lg text-gray-600">Gasless transactionsk</span>
         </h1>
-
-        <div className="alert alert-success mb-6">✅ All transactions on this page are completely gasless</div>
 
         <form onSubmit={handleSubmit} className="space-y-4 bg-base-100 p-6 rounded-3xl shadow-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -31,9 +31,9 @@ const Home = () => {
         </div>
 
         {/* УБРАЛИ КОМПОНЕНТЫ Address и Balance ИЗ-ЗА НЕВАЛИДНОГО АДРЕСА */}
-        <div className="text-center mt-8">
+        {/* <div className="text-center mt-8">
           <p className="text-gray-600">Connect your wallet to see your address and balance</p>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
@@ -47,13 +47,19 @@ const Home = () => {
           <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
             <span className="text-4xl">🔍</span>
             <h3 className="text-xl font-bold mt-4">Instant Verification</h3>
-            <p className="mt-2">Verify diplomas without wallet connection</p>
+            <p className="mt-2">Verify diplomas without wallet connection.</p>
           </div>
 
           <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
             <span className="text-4xl">🛡️</span>
             <h3 className="text-xl font-bold mt-4">Secure & Immutable</h3>
             <p className="mt-2">Data protected by blockchain technology</p>
+          </div>
+
+          <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
+            <span className="text-4xl">🌐</span>
+            <h3 className="text-xl font-bold mt-4">Modern Technologies</h3>
+            <p className="mt-2">Build On Scaffold-ETH 2 with Status Network</p>
           </div>
         </div>
       </div>

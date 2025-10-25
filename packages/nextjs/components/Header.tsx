@@ -20,11 +20,11 @@ export const menuLinks: HeaderMenuLink[] = [
     label: "Home",
     href: "/",
   },
-  {
-    label: "Debug Contracts",
-    href: "/debug",
-    icon: <BugAntIcon className="h-4 w-4" />,
-  },
+  // {
+  //   label: "Debug Contracts",
+  //   href: "/debug",
+  //   icon: <BugAntIcon className="h-4 w-4" />,
+  // },
   // НАШИ НОВЫЕ ССЫЛКИ
   {
     label: "Issue Diploma",
@@ -93,11 +93,11 @@ export const Header = () => {
           </ul>
         </details>
         <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6 shrink-0">
-          <div className="flex relative w-10 h-10">
-            <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
+          <div className="flex relative w-15 h-15">
+            <Image alt="SE2 logo" className="cursor-pointer" fill src="/iconedu.png" sizes="70px" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">EduChain Verifier</span>
+            <span className="font-bold leading-tight">EduChain</span>
             <span className="text-xs">Diploma Verification</span>
           </div>
         </Link>

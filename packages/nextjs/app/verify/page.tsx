@@ -193,7 +193,7 @@ export default function VerifyDiplomasPage() {
         <h1 className="text-center mb-8">
           <span className="block text-2xl mb-2">All Diplomas</span>
           <span className="block text-lg text-gray-600">
-            Latest diplomas on Status Network {maxTokenId > 0 && `(Total: ${maxTokenId})`}
+            Latest diplomas {maxTokenId > 0 && `(Total: ${maxTokenId})`}
           </span>
         </h1>
 
@@ -216,7 +216,9 @@ export default function VerifyDiplomasPage() {
               </button>
             )}
           </div>
-          <div className="text-sm text-gray-500 mt-2 text-center">Try searching: John, 1, Stanford, or Bachelor</div>
+          <div className="text-sm text-gray-500 mt-2 text-center">
+            Try searching by following categories: Name, ID, Univercity, or Degree
+          </div>
         </div>
 
         {allDiplomas.length === 0 ? (
@@ -351,7 +353,7 @@ export default function VerifyDiplomasPage() {
                   </div>
                 )}
 
-                {!searchTerm && (
+                {/* {!searchTerm && (
                   <div className="mt-8 text-center">
                     <div className="alert alert-success max-w-md mx-auto">
                       ✅ All diplomas are verified on Status Network blockchain
@@ -360,7 +362,7 @@ export default function VerifyDiplomasPage() {
                       📱 Click the QR icon on any diploma to generate a verification code
                     </div>
                   </div>
-                )}
+                )} */}
               </>
             )}
           </>
