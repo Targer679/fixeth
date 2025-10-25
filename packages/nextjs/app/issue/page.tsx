@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAccount, usePublicClient, useWalletClient } from "wagmi";
 import { AcademicCapIcon, BuildingLibraryIcon, DocumentTextIcon, UserIcon } from "@heroicons/react/24/outline";
+import PinataUploader from "~~/components/PinataUploader";
 import { useDeployedContractInfo } from "~~/hooks/scaffold-eth/useDeployedContractInfo";
 
 export default function IssueDiplomaPage() {
@@ -254,6 +255,20 @@ export default function IssueDiplomaPage() {
                 <h2 className="text-2xl font-bold text-white">Document Verification</h2>
               </div>
 
+              {/* Компонент загрузки файлов */}
+              {/* <PinataUploader
+                onUploadComplete={ipfsHash => {
+                  setFormData({ ...formData, ipfsHash });
+                }}
+              /> */}
+              <PinataUploader
+                onUploadComplete={ipfsHash => {
+                  console.log("🎯 IPFS Hash received in form:", ipfsHash);
+                  setFormData({ ...formData, ipfsHash });
+                }}
+              />
+
+              {/* Поле для IPFS Hash */}
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-white/90">IPFS Hash *</label>
                 <input
@@ -261,11 +276,11 @@ export default function IssueDiplomaPage() {
                   required
                   value={formData.ipfsHash}
                   onChange={e => setFormData({ ...formData, ipfsHash: e.target.value })}
-                  placeholder="QmXYZ..."
+                  placeholder="Will be automatically filled after upload"
                   className="input input-lg w-full bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white placeholder-white/60 focus:border-green-400 focus:ring-2 focus:ring-green-400/30 transition-all duration-300 rounded-2xl shadow-lg font-mono"
                 />
                 <p className="text-sm text-white/70 mt-2">
-                  Upload your diploma PDF to IPFS using services like Pinata, Lighthouse, etc.
+                  💡 Upload your diploma document above or paste an existing IPFS hash
                 </p>
               </div>
             </div>
@@ -290,9 +305,6 @@ export default function IssueDiplomaPage() {
                     </>
                   )}
                 </div>
-
-                {/* Shine effect */}
-                {/* <div className="absolute inset-0 rounded-2xl transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div> */}
               </button>
             </div>
           </form>
