@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 import { usePublicClient } from "wagmi";
-import { AcademicCapIcon, MagnifyingGlassIcon, QrCodeIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, MagnifyingGlassIcon, QrCodeIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDeployedContractInfo } from "~~/hooks/scaffold-eth/useDeployedContractInfo";
 
 interface DiplomaSummary {
@@ -23,6 +23,7 @@ export default function VerifyDiplomasPage() {
   const [maxTokenId, setMaxTokenId] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [showQRCode, setShowQRCode] = useState<number | null>(null);
+  const [copied, setCopied] = useState(false);
   const publicClient = usePublicClient();
   const { data: deployedContract } = useDeployedContractInfo("EduChainDiploma");
 
@@ -144,6 +145,25 @@ export default function VerifyDiplomasPage() {
       return `${window.location.origin}/verify/${tokenId}`;
     }
     return `https://yourapp.com/verify/${tokenId}`;
+  };
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   if (isLoading) {
@@ -359,49 +379,61 @@ export default function VerifyDiplomasPage() {
                             </span>
                           </div>
                         </Link>
-
-                        {/* QR Code Overlay */}
-                        {showQRCode === diploma.tokenId && (
-                          <div className="absolute inset-0 bg-base-100/95 backdrop-blur-sm rounded-3xl flex items-center justify-center p-6 z-20 border-2 border-primary shadow-2xl">
-                            <div className="text-center">
-                              <h4 className="font-bold text-xl mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                                Scan to Verify
-                              </h4>
-                              <div className="bg-white p-4 rounded-2xl shadow-2xl mb-4 border-2 border-primary/20">
-                                <QRCodeSVG value={getVerifyUrl(diploma.tokenId)} size={200} level="M" includeMargin />
-                              </div>
-                              <p className="text-xs text-gray-600 mb-4 break-all font-mono bg-base-200 p-2 rounded">
-                                {getVerifyUrl(diploma.tokenId)}
-                              </p>
-                              <div className="flex gap-3 justify-center">
-                                <button
-                                  onClick={e => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    navigator.clipboard.writeText(getVerifyUrl(diploma.tokenId));
-                                  }}
-                                  className="btn btn-sm btn-outline btn-primary hover:scale-105 transition-transform duration-200"
-                                >
-                                  Copy Link
-                                </button>
-                                <button
-                                  onClick={e => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    setShowQRCode(null);
-                                  }}
-                                  className="btn btn-sm btn-ghost hover:scale-105 transition-transform duration-200"
-                                >
-                                  Close
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        )}
                       </div>
                     </div>
                   ))}
                 </div>
+
+                {/* QR Code Modal - ВНЕ КАРТОЧКИ */}
+                {showQRCode && (
+                  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-base-100 rounded-3xl p-8 max-w-md w-full mx-auto relative shadow-2xl border-2 border-primary">
+                      {/* Close Button */}
+                      <button
+                        onClick={() => setShowQRCode(null)}
+                        className="absolute top-4 right-4 btn btn-circle btn-sm btn-ghost hover:bg-error hover:text-error-content transition-all duration-300"
+                      >
+                        <XMarkIcon className="h-5 w-5" />
+                      </button>
+
+                      <div className="text-center">
+                        <h4 className="font-bold text-2xl mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                          Scan to Verify
+                        </h4>
+                        <div className="bg-white p-4 rounded-2xl shadow-lg mb-6 border-2 border-primary/20">
+                          <QRCodeSVG value={getVerifyUrl(showQRCode)} size={250} level="M" includeMargin />
+                        </div>
+                        <p className="text-sm text-gray-600 mb-2">Verification URL:</p>
+                        <p className="text-xs text-gray-500 mb-6 break-all font-mono bg-base-200 p-3 rounded-lg">
+                          {getVerifyUrl(showQRCode)}
+                        </p>
+                        <div className="flex gap-3 justify-center">
+                          <button
+                            onClick={() => copyToClipboard(getVerifyUrl(showQRCode))}
+                            className="btn btn-primary btn-sm hover:scale-105 transition-transform duration-200 flex items-center gap-2"
+                          >
+                            {copied ? (
+                              <>
+                                <span>✅ Copied!</span>
+                              </>
+                            ) : (
+                              <>
+                                <span>📋</span>
+                                Copy Link
+                              </>
+                            )}
+                          </button>
+                          <button
+                            onClick={() => setShowQRCode(null)}
+                            className="btn btn-ghost btn-sm hover:scale-105 transition-transform duration-200"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Footer Info */}
                 {!searchTerm && maxTokenId > diplomas.length && (
