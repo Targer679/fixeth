@@ -36,6 +36,7 @@ contract EduChainDiploma is ERC721, AccessControl {
         _grantRole(ISSUER_ROLE, msg.sender);
     }
     
+    // УБРАЛ onlyRole(ISSUER_ROLE) - теперь любой может выпускать дипломы
     function issueDiploma(
         address recipient,
         string memory holderName,
@@ -44,7 +45,7 @@ contract EduChainDiploma is ERC721, AccessControl {
         string memory major,
         uint256 graduationDate,
         string memory ipfsHash
-    ) external onlyRole(ISSUER_ROLE) returns (uint256) {
+    ) external returns (uint256) {
         uint256 newTokenId = _nextTokenId;
         _nextTokenId++;
         

@@ -1090,7 +1090,7 @@ const deployedContracts = {
   },
   1660990954: {
     EduChainDiploma: {
-      address: "0x2EEf7AdC5f51b3858Ea310b857cD367dC8Ee5Be3",
+      address: "0x08ED3257a07742e52c91C3bd25115B5F945Faf24",
       abi: [
         {
           inputs: [],
@@ -2024,7 +2024,7 @@ const deployedContracts = {
         renounceRole: "@openzeppelin/contracts/access/AccessControl.sol",
         revokeRole: "@openzeppelin/contracts/access/AccessControl.sol",
       },
-      deployedOnBlock: 11743001,
+      deployedOnBlock: 11746471,
     },
     YourContract: {
       address: "0x520A7DCEc16bfb0E26d4418010635cb483a7fa6b",
