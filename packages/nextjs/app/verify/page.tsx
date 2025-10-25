@@ -320,8 +320,8 @@ export default function VerifyDiplomasPage() {
 
                         {/* Newest Badge - Исправленное расположение */}
                         {!searchTerm && diploma.tokenId === maxTokenId && (
-                          <div className="absolute -top-3 -right-3 z-20">
-                            <div className="badge badge-primary badge-lg px-4 py-3 shadow-xl animate-pulse text-white font-bold text-sm">
+                          <div className="absolute top-2 right-2 z-20">
+                            <div className="badge badge-primary badge-lg px-3 py-2 shadow-xl animate-pulse text-white font-bold text-xs">
                               ✨ NEWEST
                             </div>
                           </div>
@@ -386,7 +386,7 @@ export default function VerifyDiplomasPage() {
 
                 {/* QR Code Modal - ВНЕ КАРТОЧКИ */}
                 {showQRCode && (
-                  <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md flex items-center justify-center z-50 p-4">
+                  <div className="fixed inset-0 bg-transparent backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="bg-base-100 rounded-3xl p-8 max-w-md w-full mx-auto relative shadow-2xl border-2 border-primary">
                       {/* Close Button */}
                       <button
