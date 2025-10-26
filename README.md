@@ -1,88 +1,108 @@
-# 🏗 Scaffold-ETH 2
+# EduChain - Blockchain Diploma Verification System 🎓
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+## 🚀 Overview
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+EduChain is a revolutionary decentralized application that solves the critical problem of diploma fraud and credential verification. Built on **Scaffold ETH-2** -  gasless Ethereum L2, it enables educational institutions to issue tamper-proof digital diplomas as NFTs with **zero gas fees**.
 
-⚙️ Built using NextJS, RainbowKit, Foundry/Hardhat, Wagmi, Viem, and Typescript.
+> 🎯 **Project Created For**: ETH Global, BuidlGuidl, Status Network, High Technology Park of the Kyrgyz Republic
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+## 🏆 Hackathon Achievement
+- ⚡ **Gasless Transactions**: Completely free diploma issuance and verification
+- 🎯 **Perfect Fit**: Leveraged gasless transactions for mass diploma issuance
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+## 🎯 The Problem
+- **Diploma Fraud**: Over 30% of job applicants falsify their educational credentials
+- **Verification Complexity**: Traditional verification processes take weeks
+- **Centralized Systems**: Vulnerable to single points of failure
+- **High Costs**: Expensive verification services for universities
 
-## Requirements
+## 💡 Our Solution
+- **Immutable Records**: Diplomas as NFTs - cannot be altered or forged
+- **Instant Verification**: Verify credentials in seconds with a simple link
+- **Zero Gas Fees**: 100% gasless transactions on Status Network
+- **Decentralized**: No single point of control or failure
 
-Before you begin, you need to install the following tools:
+## 🛠 Tech Stack
 
-- [Node (>= v20.18.3)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+### Blockchain & Smart Contracts
+- **Scaffold  Eth-2 and Status Network**: Gasless Ethereum L2
+- **Solidity**: Smart contract development
+- **OpenZeppelin**: ERC721 implementation
+- **Linea zkEVM**: High-performance zk-rollup
 
-## Quickstart
+### Frontend & Framework
+- **React TSX**:Modern frontend framework
+- **Next.js 14**: React framework with App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first styling
+- **Scaffold-ETH 2**: Development framework
 
-To get started with Scaffold-ETH 2, follow the steps below:
+### Web3 & Storage
+- **Wagmi**: React Hooks for Ethereum
+- **IPFS**: Decentralized file storage via Pinata
+- **Pinata**: IPFS pinning service
 
-1. Install the latest version of Scaffold-ETH 2
+## ✨ Key Features
 
-```
-npx create-eth@latest
-```
+### 🎓 For Educational Institutions
+- **Gasless Diploma Issuance**: Zero transaction fees
+- **Batch Operations**: Efficient multiple diploma management
+- **IPFS Integration**: Permanent document storage
 
-This command will install all the necessary packages and dependencies, so it might take a while.
+### 👨‍🎓 For Graduates
+- **Instant Access**: Direct to wallet delivery
+- **Lifetime Ownership**: True credential ownership
+- **Easy Sharing**: Simple verification links
 
-> [!NOTE]
-> You can also initialize your project with one of our extensions to add specific features or starter-kits. Learn more in our [extensions documentation](https://docs.scaffoldeth.io/extensions/).
+### 💼 For Employers
+- **One-Click Verification**: Instant credential checking
+- **Tamper-Proof**: Cryptographic authenticity proof
+- **No Registration**: Public verification without sign-up
 
-2. Run a local network in the first terminal:
+## 🚀 Gasless Transactions
 
-```
-yarn chain
-```
+### How It Works
+```solidity
+// Completely gasless diploma issuance
+function issueDiploma(
+    address recipient,
+    string memory holderName,
+    string memory institution,
+    string memory degree, 
+    string memory major,
+    uint256 graduationDate,
+    string memory ipfsHash
+) external returns (uint256) {
+    // Gasless transaction on Status Network
+    // Zero fees for universities and students
+}
 
-This command starts a local Ethereum network that runs on your local machine and can be used for testing and development. Learn how to [customize your network configuration](https://docs.scaffoldeth.io/quick-start/environment#1-initialize-a-local-blockchain).
 
-3. On a second terminal, deploy the test contract:
+## 🚀 Benefits
 
-```
-yarn deploy
-```
+✅ **Zero Cost**: No gas fees for any operations  
+✅ **Mass Scalability**: Issue thousands of diplomas freely  
+✅ **User-Friendly**: No crypto knowledge required  
+✅ **Sustainable**: Built on Status Network's and Scaffold funding model  
 
-This command deploys a test smart contract to the local network. You can find more information about how to customize your contract and deployment script in our [documentation](https://docs.scaffoldeth.io/quick-start/environment#2-deploy-your-smart-contract).
+## 🚀 Quick Start
 
-4. On a third terminal, start your NextJS app:
+### Prerequisites
+- Node.js 18+
+- Git
+- Web3 wallet (Status Wallet, MetaMask)
 
-```
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/Targer679/fixeth.git
+cd fixeth
+
+2. **Install dependences**
+yarn install
+
+3 **Run**
 yarn start
-```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
-
-**What's next**:
-
-Visit the [What's next section of our docs](https://docs.scaffoldeth.io/quick-start/environment#whats-next) to learn how to:
-
-- Edit your smart contracts
-- Edit your deployment scripts
-- Customize your frontend
-- Edit the app config
-- Writing and running tests
-- [Setting up external services and API keys](https://docs.scaffoldeth.io/deploying/deploy-smart-contracts#configuration-of-third-party-services-for-production-grade-apps)
-
-## Documentation
-
-Visit our [docs](https://docs.scaffoldeth.io) to learn all the technical details and guides of Scaffold-ETH 2.
-
-To know more about its features, check out our [website](https://scaffoldeth.io).
-
-## Contributing to Scaffold-ETH 2
-
-We welcome contributions to Scaffold-ETH 2!
-
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+4 **Open the browser on http://localhost:3000 **
