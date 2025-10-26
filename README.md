@@ -81,6 +81,7 @@ function issueDiploma(
 }
 ```
 
+
 ## 🚀 Benefits
 
 ✅ **Zero Cost**: No gas fees for any operations  
@@ -124,6 +125,11 @@ yarn start
 1. Navigate to `/verify/[tokenId]`
 2. Or scan the QR code
 3. View all verified details instantly
+
+<img width="2499" height="1379" alt="image" src="https://github.com/user-attachments/assets/b523bfe4-bed1-4049-b792-0e5575805351" />
+
+
+<img width="2522" height="1375" alt="image" src="https://github.com/user-attachments/assets/c1f9c19a-3fd5-47c3-98ad-378f1e477d4e" />
 
 
 ## 🎯 Hackathon Highlights
