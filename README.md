@@ -5,6 +5,9 @@
 EduChain is a revolutionary decentralized application that solves the critical problem of diploma fraud and credential verification. Built on **Scaffold ETH-2** -  gasless Ethereum L2, it enables educational institutions to issue tamper-proof digital diplomas as NFTs with **zero gas fees**.
 
 > 🎯 **Project Created For**: ETH Global, BuidlGuidl, Status Network, High Technology Park of the Kyrgyz Republic
+>
+<img width="2519" height="1373" alt="image" src="https://github.com/user-attachments/assets/0cb26abf-ce29-42aa-bb69-5004687f745f" />
+
 
 ## 🏆 Hackathon Achievement
 - ⚡ **Gasless Transactions**: Completely free diploma issuance and verification
@@ -108,3 +111,44 @@ yarn start
 4 **Open the browser on http://localhost:3000 **
 ```
 
+## 📖 Usage Guide
+
+### For Institutions: Issue a Diploma
+1. Navigate to `/issue`
+2. Connect your wallet
+3. Fill in student details
+4. Upload diploma document
+5. Click "Issue Diploma (Gasless)" - **Zero Fees!**
+
+### For Verification: Check a Diploma
+1. Navigate to `/verify/[tokenId]`
+2. Or scan the QR code
+3. View all verified details instantly
+
+
+## 🎯 Hackathon Highlights
+
+### Scaffold and Status Network Integration
+- ✅ **Gasless Transactions**: Zero-cost operations
+- ✅ **High Performance**: Linea zkEVM technology
+- ✅ **Easy Onboarding**: Simple user experience
+- ✅ **Judging Criteria Met**: Functionality, Fun, UX
+
+## 🔮 Future Enhancements
+
+- **Batch Issuance**: Multiple diplomas in single transaction
+- **Mobile App**: Native iOS/Android applications
+- **International Standards**: W3C Verifiable Credentials
+- **University Partnerships**: Institutional onboarding
+
+## 👥 Team
+
+- **Adilkhan** - Full Stack Developer, Smart Contract Engineer and Project Manager
+- **Aibek** - Backend Developer & Smart Contract Engineer
+
+## 💫 Live Demo
+
+**Try it now:** [Your Live Demo Link]
+**Video Demo:** [Your Demo Video Link]
+
+Built with ❤️ for ETH Global, BuidlGuidl, Status Network, and High Technology Park of the Kyrgyz Republic. Making education verification transparent, accessible, and free for everyone.
