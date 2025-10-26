@@ -76,7 +76,7 @@ function issueDiploma(
     // Gasless transaction on Status Network
     // Zero fees for universities and students
 }
-
+```
 
 ## 🚀 Benefits
 
@@ -106,3 +106,5 @@ yarn install
 yarn start
 
 4 **Open the browser on http://localhost:3000 **
+```
+
